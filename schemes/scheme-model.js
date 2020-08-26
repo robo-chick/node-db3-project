@@ -37,19 +37,14 @@ function remove(id) {
 // STRETCH Add the following method to your API
 // addStep(step, scheme_id): This method expects a step object and a scheme id. It inserts the new step into the database, correctly linking it to the intended scheme.
 
-const addStep = async (stepData, schemeId) => {
-    const newStep = {
-        ...stepData, scheme_id: schemeId
-    }
-    console.log(newStep)
-    try {
-        const result = await db("steps")
-            .insert(newStep, "id")
-    } catch(err) {
-        console.log(err.stack)
-    }
-}
-
+function addStep(step, schemeId) {
+    return db("steps")
+            .where({scheme_id: schemeId})
+            .insert(step)
+            .then(() => {
+              return step;
+            })
+  }
 module.exports = {
     find,
     findById,
