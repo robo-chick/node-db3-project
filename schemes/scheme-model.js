@@ -15,6 +15,7 @@ function findSteps(id) {
         .join("steps as st", "s.id", "st.scheme_id")
         .select("s.id", "s.scheme_name", "st.step_number", "st.instructions")
         .where({scheme_id: id})
+        .orderBy("st.step_number")
 }
 
 function add(schemeData) {
